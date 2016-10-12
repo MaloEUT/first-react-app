@@ -34,6 +34,7 @@ container: {
   },
   welcome: {
     fontSize: 20,
+    paddingTop: 60,
     textAlign: 'center',
     margin: 10,
   },
