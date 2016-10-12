@@ -1,0 +1,3 @@
+rootProject.name = 'nutApp'
+
+include ':app'
