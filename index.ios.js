@@ -12,6 +12,7 @@ import {
   Text,
   View,
   NavigatorIOS,
+  AlertIOS,
 } from 'react-native';
 import styles from './styles';
 
@@ -38,7 +39,10 @@ var nutApp = React.createClass({
       initialRoute={{
         component: MediaListView,
         title: 'NutApp',
-        rightButtonTitle: 'Search'
+        rightButtonTitle: 'Search',
+        onRightButtonPress: () => AlertIOS.alert(
+          'YO','Va bien te faire enculer.'
+          )
          }} />
     );
   }
