@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -43,4 +42,3 @@ container: {
     marginBottom: 5,
   },
 });
-

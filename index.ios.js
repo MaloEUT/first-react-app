@@ -10,9 +10,7 @@ import {
   Text,
   View,
 } from 'react-native';
-
- 
-
+import { styles } from './styles';
 
 export default class nutApp extends Component {
   render() {
@@ -31,8 +29,6 @@ export default class nutApp extends Component {
   }
 }
 
-
- var styles = require('./styles')
 
 
 AppRegistry.registerComponent('nutApp', () => nutApp);
