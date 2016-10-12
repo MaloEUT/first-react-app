@@ -13,6 +13,7 @@ container: {
     flex: 1,
     backgroundColor: '#DAE4E7',
   },
+  
   navbar: {
     backgroundColor: '#42476F',
     paddingTop: 30,
