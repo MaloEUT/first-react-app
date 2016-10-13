@@ -11,21 +11,23 @@ container: {
   },
   content: {
     flex: 1,
+
     backgroundColor: '#DAE4E7',
   },
-  
+
   navbar: {
     backgroundColor: '#42476F',
-    paddingTop: 30,
-    paddingBottom: 10,
+    paddingTop: 20,
+    flex: 1,
     flexDirection: 'row',
   },
   navbarTitle: {
     backgroundColor: '#42476F',
     textAlign: 'center',
     fontWeight: 'bold',
-    flex: 2,
-    color: '#DAE4E7'
+    flex: 1,
+    color: '#DAE4E7',
+
   },
   navbarButton: {
     backgroundColor: '#42476F',
@@ -39,9 +41,23 @@ container: {
     textAlign: 'center',
     margin: 10,
   },
+  searchBar: {
+    padding: 5,
+    paddingLeft: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFF',
+    marginTop: 64,
+  },
+  searchBarInput: {
+  	fontSize: 15,
+    flex: 1,
+    height: 30,
+  },
   instructions: {
+
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5,
+
   },
 });
