@@ -12,9 +12,18 @@ import {
   View,
   NavigatorIOS,
   TextInput,
+  TimerMixin,
   AlertIOS,
 } from 'react-native';
 import styles from './styles';
+
+var API_URL = 'https://itunes.apple.com/search';
+
+var LOADING = {};
+
+var resultsCache = {
+  dataForQuery: {}
+};
 
 
 var SearchBar = React.createClass({
@@ -30,35 +39,72 @@ var SearchBar = React.createClass({
         maxLength = {50}
         enablesReturnKeyAutomaticaly={true}
         style={styles.searchBarInput}
+        onChange={this.props.onSearch}
         />
         </View>
       );
   }
 });
 
-class UselessTextInput extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { text: 'Useless Placeholder' };
-  }
-
-  render() {
-    return (
-      <TextInput
-        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        onChangeText={(text) => this.setState({text})}
-        value={this.state.text}
-      />
-    );
-  }
-}
-
 
 var MediaListView = React.createClass({
+  mixins:[TimerMixin],
+
+  timeoutID: (null: any),
+
+  _urlForQuery : function(query: string): string {
+    if (query.length > 5) {
+      return API_URL + '?media=movie&term=' + encodeURIComponent(query);
+    } else {
+      return API_URL + 'media=movie&term=mission+impossible';
+    }
+  },
+
+  searchMedia: function (query: string) {
+    this.timeoutID = null;
+
+    var cachedResultsForQuery = resultsCache.dataForQuery[query];
+    if(cachedResultsForQuery) {
+      if (!LOADING[query]) {
+      AlertIOS.alert('Nuber of results', cachedResultsForQuery.length + ' cached results');
+      }
+    } else {
+      var queryURL = this._urlForQuery(query);
+
+       if (!queryURL) return;
+
+       LOADING[query] = true;
+       resultsCache.dataForQuery[query] = null;
+
+       fetch(queryURL)
+         .then((response) => response.json())
+         .catch((error) => {
+           LOADING[query] = false;
+           resultsCache.dataForQuery[query] = undefined;
+         })
+         .then((responseData) => {
+           LOADING[query] = false;
+           resultsCache.dataForQuery[query] = responseData.results;
+
+           AlertIOS.alert('Number of results', responseData.resultCount + ' results');
+         });
+    }
+  },
+
+
   render: function() {
     return (
       <View style={styles.content}>
-      <SearchBar />
+      <SearchBar
+      onSearch={(event) => {
+        var searchString = event.nativeEvent.text;
+
+        
+        this.timeoutID = This.setTimeout(() => this.searchMedia(searchString), 500 );
+      }}
+
+
+       />
       </View>
     );
   }
